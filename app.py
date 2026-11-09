@@ -37,21 +37,33 @@ selected_date = st.date_input(
 if st.button("Predict sales", type="primary"):
     # 1. Ask the weather API for the forecast
     latitude, longitude = CITIES[city]
-    response = requests.get(
-        URL,
-        params={
-            "latitude": latitude,
-            "longitude": longitude,
-            "daily": "temperature_2m_max",
-            "temperature_unit": "fahrenheit",
-            "timezone": "auto",
-            "start_date": str(selected_date),
-            "end_date": str(selected_date),
-        },
-        timeout=30,
-    )
-    response.raise_for_status()
-    temperature = response.json()["daily"]["temperature_2m_max"][0]
+    try:
+        response = requests.get(
+            URL,
+            params={
+                "latitude": latitude,
+                "longitude": longitude,
+                "daily": "temperature_2m_max",
+                "temperature_unit": "fahrenheit",
+                "timezone": "auto",
+                "start_date": str(selected_date),
+                "end_date": str(selected_date),
+            },
+            timeout=30,
+        )
+        response.raise_for_status()
+        data = response.json()
+        temperature = data.get("daily", {}).get("temperature_2m_max", [None])[0]
+        
+        if temperature is None:
+            raise ValueError("Temperature data not found in API response.")
+            
+    except (requests.exceptions.HTTPError, ValueError) as e:
+        st.error(
+            f"Could not retrieve valid weather data for {selected_date}. "
+            "Please try another date or city."
+        )
+        st.stop()
 
     # 2. Determine if the selected date is a weekend (Saturday=5, Sunday=6)
     # is_weekend = 1 if selected_date.weekday() >= 5 else 0
