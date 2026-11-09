@@ -7,11 +7,20 @@ import streamlit as st
 
 # ---- Settings ----------------------------------------------------------
 CITIES = {
-    "Pittsburgh": (40.44, -79.99),
-    "New York": (40.71, -74.01),
+    "Atlanta": (33.74, -84.38),
+    "Austin": (30.26, -97.74),
+    "Boston": (42.36, -71.05),
     "Chicago": (41.88, -87.63),
-    "Miami": (25.76, -80.19),
+    "Denver": (39.73, -104.99),
     "Los Angeles": (34.05, -118.24),
+    "Miami": (25.76, -80.19),
+    "Minneapolis": (44.97, -93.26),
+    "Nashville": (36.16, -86.78),
+    "New Orleans": (29.95, -90.07),
+    "New York": (40.71, -74.01),
+    "Phoenix": (33.44, -112.07),
+    "Pittsburgh": (40.44, -79.99),
+    "Seattle": (47.60, -122.33),
 }
 LOW_TEMP, HIGH_TEMP = 30, 100        # the temperatures (F) the model learned from
 LOW_SALES, HIGH_SALES = 200, 300     # below LOW_SALES is a slow day, above HIGH_SALES is a busy one
