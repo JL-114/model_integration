@@ -33,7 +33,7 @@ with open("model.pkl", "rb") as f:
 
 st.set_page_config(page_title="Ice Cream Sales Predictor", page_icon="🍦")
 st.title("🍦 Ice Cream Sales Predictor")
-st.caption("Pick a city and a date. The app gets the weather forecast and predicts how many cones you will sell.")
+st.caption("Pick a city and a date. The app gets the weather forecast and weekday status to predict how many cones you will sell.")
 
 city = st.selectbox("City", list(CITIES))
 selected_date = st.date_input(
